@@ -15,7 +15,7 @@ We explicitly design the allocation to respect each doctor's preference list. If
 
 ## What this repository contains：
 1. An implementation of the Rank-Maximal Matching algorithm tailored for assigning doctors to hospitals with capacity constraints.
-2. Evaluation metrics and scripts to assess assignment quality
+2. Evaluation metrics code to assess assignment quality
 3. The notebook so you can reproduce experiments and tests.
 
 ## Reference list：
