@@ -54,20 +54,3 @@ def evaluate_matching(preferences, assignments, plot_histogram=True):
         "weighted_score": float(weighted_score),
         "average_rank": avg_rank
     }
-
-
-# ====== Example ======
-if __name__ == "__main__":
-    # 3 doctors, 3 hospitals
-    prefs = np.array([
-        [1, 2, 3, 5, 4],
-        [3, 1, 2, 4, 5],
-        [2, 3, 1, 5, 4],
-        [3, 1, 2, 4, 5],
-        [3, 2, 1, 4, 5],
-    ])
-
-    assignments = np.array([0, 1, -1, 1, 4])
-
-    result = evaluate_matching(prefs, assignments)
-    print(result)
