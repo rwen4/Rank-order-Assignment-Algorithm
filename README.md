@@ -1,2 +1,3 @@
 ### Rank-order-Assignment-Algorithm
-##That is university programme project
+Project name：
+Based on：https://dl.acm.org/doi/pdf/10.1145/1198513.1198520
