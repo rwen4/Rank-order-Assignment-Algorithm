@@ -23,8 +23,6 @@ The notebook is self‑contained: you can generate data, solve the LP, and evalu
 - [Configuration and customization](#configuration-and-customization)
 - [Outputs and interpretation](#outputs-and-interpretation)
 - [Evaluation metrics and plots](#evaluation-metrics-and-plots)
-- [Troubleshooting](#troubleshooting)
-- [Notes on integrality and performance](#notes-on-integrality-and-performance)
 
 ---
 
