@@ -187,8 +187,6 @@ def extract_results(residents, hospitals, x, max_rank, signature, K_total, TOL):
     for r in range(1, max_rank + 1):
         print(f"  rank {r}: {signature.get(r, 0)}")
     print(f"# matched pairs in solution: {len(matching)}")
-
-    # Example: preview first 15 assignments
     print("Sample matches:", matching[:15])
 
     return matching, signature
