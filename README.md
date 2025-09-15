@@ -177,9 +177,9 @@
   
 ## References
 
-- Irving, R. W., Kavitha, T., Mehlhorn, K., Michail, D., & Paluch, K. E. (2006). *Rank-maximal matchings*. ACM Transactions on Algorithms, 2(4), 602–610. DOI: 10.1145/1198513.1198520. :contentReference[oaicite:0]{index=0}
+- Irving, R. W., Kavitha, T., Mehlhorn, K., Michail, D., & Paluch, K. E. (2006). *Rank-maximal matchings*. ACM Transactions on Algorithms, 2(4), 602–610. DOI: 10.1145/1198513.1198520. [https://dl.acm.org/doi/pdf/10.1145/1198513.1198520](https://dl.acm.org/doi/pdf/10.1145/1198513.1198520)
 
-- Grötschel, M., Lovász, L., & Schrijver, A. (1981). *The ellipsoid method and its consequences in combinatorial optimization*. Combinatorica, 1(2), 169–197. DOI: 10.1007/BF02579273. :contentReference[oaicite:1]{index=1}
+- Grötschel, M., Lovász, L., & Schrijver, A. (1981). *The ellipsoid method and its consequences in combinatorial optimization*. Combinatorica, 1(2), 169–197. DOI: 10.1007/BF02579273. [https://link.springer.com/content/pdf/10.1007/BF02579273.pdf](https://link.springer.com/content/pdf/10.1007/BF02579273.pdf)
 
   
   ## Contributions:
