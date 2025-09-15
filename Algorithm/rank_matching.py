@@ -63,7 +63,7 @@ def load_inputs(pref_path, cap_path):
 
 
 
-    return residents, hospitals, preferences, hospital_capacities, indvcapacity
+    return residents, hospitals, preferences, hospital_list, indvcapacity
 
 
 def build_model(residents, hospitals, preferences, hospital_capacities, indvcapacity):
