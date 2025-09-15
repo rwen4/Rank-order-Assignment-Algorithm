@@ -188,7 +188,7 @@
 - Grötschel, M., Lovász, L., & Schrijver, A. (1981). *The ellipsoid method and its consequences in combinatorial optimization*. Combinatorica, 1(2), 169–197. DOI: 10.1007/BF02579273. [https://link.springer.com/content/pdf/10.1007/BF02579273.pdf](https://link.springer.com/content/pdf/10.1007/BF02579273.pdf)
 
   
-  ## Contributions:
-  Richard Wen: rank_matching.py, demo script 
-  <br>Jiyi Wang: Establish repository, README
-  <br>Jiayou Jiang: Encode the metrics code.
+## Contributions:
+Richard Wen: rank_matching.py, demo script 
+<br>Jiyi Wang: Establish repository, README
+<br>Jiayou Jiang: Encode the metrics code.
