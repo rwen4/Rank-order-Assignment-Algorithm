@@ -30,7 +30,6 @@ def load_inputs(pref_path, cap_path):
     residents = df["Names"].astype(str).tolist()
 
     # Append "None" to list of hospitals, with excess capacity. 
-    # See explanation for why we do this below.
     cap_df.loc[len(cap_df)] = ["None", len(residents)+1]
 
     # Normalize formatting
@@ -54,7 +53,6 @@ def load_inputs(pref_path, cap_path):
                 hospital_list.append(h_norm)
     
         # Append the created hospital "None" at the end of each resident's preference list
-        # See explanation of why we do this below
         hospital_list.append("None")
 
         # to (hospital, rank) tuples: 1,2,3,...
@@ -137,7 +135,6 @@ def solve_model(prob, x, z, edges, max_rank, signature, K_total, TOL):
     K_total = int(round(pulp.value(all_match_expr)))
 
     # "Lock" all_match_expr to K_Total, i.e. there cannot be less assignments than the maximum number of assignments.
-    # (See explanation in demo script for why we do this) 
     prob += (all_match_expr == K_total), "LOCK_total_matches"
     locks.append(("total", K_total))
 
