@@ -44,13 +44,104 @@ rank_matching.py should output the following
 - Number of Hospitals Loaded
 - Total matches
 - The number of residents matched for each rank
-- A preview of the first 15 assignments
 
 It will save the resident-hospital assignments to a CSV file, results.csv. 
 
-### Responsibility for preferences: 
+## Algorithm Details
 
-We explicitly design the allocation to respect each doctor's preference list. If two doctors, A and B, both prefer the same hospital and that hospital has only one available slot, we will not favor the doctor who has fewer alternative preferences. For example, if A has additional lower-ranked choices while B does not, we will not automatically assign the slot to B over A. This decision enforces that doctors are accountable for the preferences they submit.
+### Problem Description
+
+In order to approach this via Linear Programming, we first define the Rank-Maximal method mathematically:
+
+- Let doctors be indexed by *i ∈ {1, …, N}*  
+- Let hospitals be indexed by *j ∈ {1, …, M}*  
+- Decision variable:  
+  - *xᵢⱼ = 1* if doctor *i* is assigned to hospital *j*, 0 otherwise.  
+- Preference indicator:  
+  - δᵢⱼ^(r) = 1 if doctor *i* ranked hospital *j* as rank *r*, 0 otherwise.  
+
+The algorithm proceeds in a **rank-maximizing sequence**:  
+1. First, maximize the number of rank-1 matches:  
+
+   ![formula](https://latex.codecogs.com/svg.latex?\sum_{j=1}^{M}\sum_{i=1}^{N}x_{ij}\delta_{ij}^{(1)})  
+
+   Let this maximum be K₁.  
+
+2. Next, maximize the number of rank-2 matches, **subject to** the constraint that exactly K₁ rank-1 matches are preserved.  
+
+3. Continue sequentially for higher ranks.  
+
+The final solution is represented by a **rank-maximal signature**:  
+[p₁, p₂, …] = [K₁, K₂, …],  
+where each Kᵣ is the number of matches achieved at rank *r*.  
+
+---
+
+### Approach (Linear Programming)
+
+The algorithm can be framed as a series of linear programs:
+
+- **Step 1:** Identify all rank-1 preference edges.  
+- **Step 2:** Solve an LP to maximize the number of matches using only those edges.  
+- **Step 3:** Lock those matches and move on to rank-2 edges, adding them as new constraints.  
+
+**Example:**  
+
+| Doctor | Rank 1 | Rank 2 | Rank 3 |
+|--------|--------|--------|--------|
+| A      | X      | Y      | Z      |
+| B      | Y      | X      | Z      |
+| C      | X      | Z      | Y      |
+
+- Rank-1 edges: {(A, X), (B, Y), (C, X)}  
+- Rank-2 edges: {(A, Y), (B, X), (C, Z)}  
+
+Maximization is performed in stages, ensuring earlier rank matches remain fixed as new ranks are considered.  
+
+---
+
+### Exploitable List Lengths
+
+A challenge arises when doctors rank **different numbers of hospitals**:
+
+- Doctors may list up to 300 hospitals, but can rank fewer.  
+- This may **unfairly reward shorter lists**.  
+
+**Example:**  
+- Doctor A: ranks X then Y.  
+- Doctor B: ranks only X.  
+
+If both want X, the algorithm may assign:  
+- X → B (rank 1)  
+- Y → A (rank 2)  
+
+This creates a signature of [1,1], which is “better” than [1,0].  
+As a result, the algorithm **incentivizes participants to submit shorter preference lists**, which is undesirable.  
+
+---
+
+# Fix: Dummy Hospital
+
+To remove this exploit, we introduce a **dummy hospital** called `"None"`:  
+
+- `"None"` has **infinite capacity**.  
+- Any doctor who does not match to a real hospital is automatically matched to `"None"`.  
+- `"None"` is always treated as the **next rank option**.  
+
+**Example:**  
+- Doctor A: X, Y  
+- Doctor B: X, None  
+
+Now, if B does not get X, they are matched to `"None"`, which counts as their rank-2 option.  
+
+This ensures fairness:  
+- (A, Y), (B, X)  
+- (A, X), (B, None)  
+are considered equally valid outcomes.  
+
+👉 This modification **encourages ranking more hospitals**, removing the incentive to submit artificially short lists.  
+
+
 
 
 ## Reference list：
