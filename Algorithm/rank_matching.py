@@ -296,18 +296,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefs", type=str, default=None)
     parser.add_argument("--caps", type=str, default=None)
-    parser.add_argument("--out", type=str, default=None)
     args = parser.parse_args()
 
     pref_path = args.prefs or input("Path to residents preferences Excel file: ").strip()
     cap_path = args.caps or input("Path to hospital capacities Excel file: ").strip()
-    out_path = args.out or input("Path to output results CSV file: ").strip()
 
     residents, hospitals, preferences  = load_inputs(pref_path, cap_path)
     prob, x, all_match_expr, rank_expr, max_rank = build_model(residents, hospitals, preferences)
     prob, x, signature, K_total, max_rank = solve_model(prob, x, all_match_expr, rank_expr, max_rank)
     matching, signature = extract_results(residents, hospitals, x, max_rank, signature, K_total)
-    export_matching_to_csv(matching, out_path)
+    export_matching_to_csv(matching, "results2.csv")
 
 if __name__ == "__main__":
     main()
