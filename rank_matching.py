@@ -119,10 +119,10 @@ def build_model(residents, hospitals, preferences, hospital_capacities, indvcapa
     for r in range(1, max_rank + 1):
         rank_expr[r] = pulp.lpSum(x[(i, j)] for (i, j, rr) in edges if rr == r)
         
-    return prob, x, z, edges, max_rank, signature, K_total, TOL
+    return prob, x, z, edges, max_rank, signature, K_total
 
 
-def solve_model(prob, x, z, edges, max_rank, signature, K_total, TOL):
+def solve_model(prob, x, z, edges, max_rank, signature, K_total):
     # First we set objective to our previously defined variable all_match_expr to maximize TOTAL assignments
     prob.setObjective(all_match_expr)
 
@@ -134,6 +134,9 @@ def solve_model(prob, x, z, edges, max_rank, signature, K_total, TOL):
     # Extract the maximum number of total assignments as K_Total.
     K_total = int(round(pulp.value(all_match_expr)))
 
+    locks = []
+    signature = {}
+    
     # "Lock" all_match_expr to K_Total, i.e. there cannot be less assignments than the maximum number of assignments.
     prob += (all_match_expr == K_total), "LOCK_total_matches"
     locks.append(("total", K_total))
@@ -170,13 +173,13 @@ def solve_model(prob, x, z, edges, max_rank, signature, K_total, TOL):
     return prob, x, signature, K_total, max_rank
 
 
-def extract_results(residents, hospitals, x, max_rank, signature, K_total, TOL):
+def extract_results(residents, hospitals, x, max_rank, signature, K_total):
     
     # Build the matching list from the optimal solution
     matching = []
     for (i, j), var in x.items():
         val = var.value()
-        if val is not None and val >= 1 - TOL:
+        if val is not None and val >= 1 - 1e-6:
             matching.append((i, j))
 
     # Print Results 
@@ -298,9 +301,9 @@ def main():
     cap_path = args.caps or input("Path to hospital capacities Excel file: ").strip()
 
     residents, hospitals, preferences, hospital_capacities, indvcapacity = load_inputs(pref_path, cap_path)
-    prob, x, z, edges, max_rank, signature, K_total, TOL = build_model(residents, hospitals, preferences, hospital_capacities, indvcapacity)
-    prob, x, signature, K_total, max_rank = solve_model(prob, x, z, edges, max_rank, signature, K_total, TOL)
-    matching, signature = extract_results(residents, hospitals, x, max_rank, signature, K_total, TOL)
+    prob, x, z, edges, max_rank, signature, K_total = build_model(residents, hospitals, preferences, hospital_capacities, indvcapacity)
+    prob, x, signature, K_total, max_rank = solve_model(prob, x, z, edges, max_rank, signature, K_total)
+    matching, signature = extract_results(residents, hospitals, x, max_rank, signature, K_total)
     export_matching_to_csv(matching, "results.csv")
 
 if __name__ == "__main__":
