@@ -58,20 +58,20 @@ In order to approach this via Linear Programming, we first define the Rank-Maxim
 - Decision variable:  
   - *xᵢⱼ = 1* if doctor *i* is assigned to hospital *j*, 0 otherwise.  
 - Preference indicator:  
-  - δᵢⱼ^(r) = 1 if doctor *i* ranked hospital *j* as rank *r*, 0 otherwise.  
+  - $ \delta_{ij}^{(r)} $ = 1 if doctor *i* ranked hospital *j* as rank *r*, 0 otherwise.  
 
-The algorithm proceeds in a **rank-maximizing sequence**:  
+The algorithm proceeds sequentially:  
 1. First, maximize the number of rank-1 matches:  
 
    ![formula](https://latex.codecogs.com/svg.latex?\sum_{j=1}^{M}\sum_{i=1}^{N}x_{ij}\delta_{ij}^{(1)})  
 
    Let this maximum be K₁.  
 
-2. Next, maximize the number of rank-2 matches, **subject to** the constraint that exactly K₁ rank-1 matches are preserved.  
+2. Next, maximize the number of rank-2 matches, subject to the constraint that exactly K₁ rank-1 matches are preserved.  
 
 3. Continue sequentially for higher ranks.  
 
-The final solution is represented by a **rank-maximal signature**:  
+The final solution is represented by a "rank-maximal signature":  
 [p₁, p₂, …] = [K₁, K₂, …],  
 where each Kᵣ is the number of matches achieved at rank *r*.  
 
@@ -102,10 +102,10 @@ Maximization is performed in stages, ensuring earlier rank matches remain fixed 
 
 ### Exploitable List Lengths
 
-A challenge arises when doctors rank **different numbers of hospitals**:
+A challenge arises when doctors rank different numbers of hospitals:
 
 - Doctors may list up to 300 hospitals, but can rank fewer.  
-- This may **unfairly reward shorter lists**.  
+- This may unfairly reward shorter lists.  
 
 **Example:**  
 - Doctor A: ranks X then Y.  
@@ -116,17 +116,17 @@ If both want X, the algorithm may assign:
 - Y → A (rank 2)  
 
 This creates a signature of [1,1], which is “better” than [1,0].  
-As a result, the algorithm **incentivizes participants to submit shorter preference lists**, which is undesirable.  
+As a result, the algorithm incentivizes participants to submit shorter preference lists, which is undesirable.  
 
 ---
 
-# Fix: Dummy Hospital
+**Fix: Dummy Hospital**
 
-To remove this exploit, we introduce a **dummy hospital** called `"None"`:  
+To remove this exploit, we introduce a dummy hospital called `"None"`:  
 
-- `"None"` has **infinite capacity**.  
+- `"None"` has infinite capacity.  
 - Any doctor who does not match to a real hospital is automatically matched to `"None"`.  
-- `"None"` is always treated as the **next rank option**.  
+- `"None"` is always treated as the next rank option.  
 
 **Example:**  
 - Doctor A: X, Y  
@@ -139,7 +139,7 @@ This ensures fairness:
 - (A, X), (B, None)  
 are considered equally valid outcomes.  
 
-👉 This modification **encourages ranking more hospitals**, removing the incentive to submit artificially short lists.  
+👉 This modification encourages ranking more hospitals, removing the incentive to submit artificially short lists.  
 
 
 
