@@ -35,7 +35,36 @@
   
   The second one, caps, should have two columns: Hospital Names/IDs, and their respective capacities.
   
-  See Demo script for example datasets.
+  ### Example Input Files
+
+#### prefs.xlsx
+
+This file should contain each resident’s preferences in **rank order**, separated by commas.
+
+| Resident | Preferences |
+|----------|-------------|
+| A        | X,Y,Z       |
+| B        | Y,X,Z       |
+| C        | X,Z,Y       |
+
+- **Resident**: Name or unique ID of the applicant  
+- **Preferences**: A comma-separated list of hospital IDs, ordered from most to least preferred  
+
+---
+
+#### caps.xlsx
+
+This file should contain each hospital and its capacity (number of available slots).
+
+| Hospital | Capacity |
+|----------|----------|
+| X        | 1        |
+| Y        | 2        |
+| Z        | 1        |
+
+- **Hospital**: Name or unique ID of the hospital  
+- **Capacity**: Number of residents that hospital can accept  
+
   
   ### Output
   
