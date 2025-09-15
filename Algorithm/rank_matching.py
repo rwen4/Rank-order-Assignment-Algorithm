@@ -3,6 +3,7 @@ import pandas as pd
 import random
 import matplotlib.pyplot as plt
 import argparse
+import csv
 
 
 def load_inputs(pref_path, cap_path):
@@ -63,10 +64,10 @@ def load_inputs(pref_path, cap_path):
 
 
 
-    return residents, hospitals, preferences, cap_df, indvcapacity
+    return residents, hospitals, preferences
 
 
-def build_model(residents, hospitals, preferences, hospital_capacities, indvcapacity):
+def build_model(residents, hospitals, preferences):
     # edges is a list of all possible triplets (i,j,r) for which i and j are "successful" rank-r pairings. 
     # For example, (0001, 9058, 1) would be an element of edges if and only if doctor 0001 selected hospital 9058 as their #1 choice
     # These pairs will later be used to determine maximum rank pairs.
@@ -119,10 +120,10 @@ def build_model(residents, hospitals, preferences, hospital_capacities, indvcapa
     for r in range(1, max_rank + 1):
         rank_expr[r] = pulp.lpSum(x[(i, j)] for (i, j, rr) in edges if rr == r)
         
-    return prob, x, z, edges, max_rank, signature, K_total
+    return prob, x, all_match_expr, rank_expr, max_rank
 
 
-def solve_model(prob, x, z, edges, max_rank, signature, K_total):
+def solve_model(prob, x, all_match_expr, rank_expr, max_rank):
     # First we set objective to our previously defined variable all_match_expr to maximize TOTAL assignments
     prob.setObjective(all_match_expr)
 
@@ -300,9 +301,9 @@ def main():
     pref_path = args.prefs or input("Path to residents preferences Excel file: ").strip()
     cap_path = args.caps or input("Path to hospital capacities Excel file: ").strip()
 
-    residents, hospitals, preferences, hospital_capacities, indvcapacity = load_inputs(pref_path, cap_path)
-    prob, x, z, edges, max_rank, signature, K_total = build_model(residents, hospitals, preferences, hospital_capacities, indvcapacity)
-    prob, x, signature, K_total, max_rank = solve_model(prob, x, z, edges, max_rank, signature, K_total)
+    residents, hospitals, preferences  = load_inputs(pref_path, cap_path)
+    prob, x, all_match_expr, rank_expr, max_rank = build_model(residents, hospitals, preferences)
+    prob, x, signature, K_total, max_rank = solve_model(prob, x, all_match_expr, rank_expr, max_rank)
     matching, signature = extract_results(residents, hospitals, x, max_rank, signature, K_total)
     export_matching_to_csv(matching, "results.csv")
 
