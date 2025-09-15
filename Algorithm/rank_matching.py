@@ -4,7 +4,7 @@ import random
 import matplotlib.pyplot as plt
 import argparse
 import csv
-
+import os
 
 def load_inputs(pref_path, cap_path):
     import pandas as pd
@@ -296,16 +296,24 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefs", type=str, default=None)
     parser.add_argument("--caps", type=str, default=None)
+    parser.add_argument("--out", type=str, default=None)
     args = parser.parse_args()
 
     pref_path = args.prefs or input("Path to residents preferences Excel file: ").strip()
     cap_path = args.caps or input("Path to hospital capacities Excel file: ").strip()
 
+    if args.out:
+        out_path = args.out
+    else:
+        default_out = f"{os.path.splitext(os.path.basename(pref_path))[0]}_results.csv"
+        user_out = input(f"Path to output results CSV file [{default_out}]: ").strip()
+        out_path = user_out or default_out
+
     residents, hospitals, preferences  = load_inputs(pref_path, cap_path)
     prob, x, all_match_expr, rank_expr, max_rank = build_model(residents, hospitals, preferences)
     prob, x, signature, K_total, max_rank = solve_model(prob, x, all_match_expr, rank_expr, max_rank)
     matching, signature = extract_results(residents, hospitals, x, max_rank, signature, K_total)
-    export_matching_to_csv(matching, "results2.csv")
+    export_matching_to_csv(matching, out_path)
 
 if __name__ == "__main__":
     main()
