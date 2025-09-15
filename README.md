@@ -29,11 +29,17 @@
   
   The code takes in two .xlsx files. To run the code, run the following:
   
-  ```python rank_matching.py --prefs <path> --caps <path>```
+  ```python rank_matching.py --prefs <path> --caps <path> --out <path>```
+
+  The first xlsx file, prefs, should have two columns: Resident Names/IDs, and their respective preferences, which should be lists separated by commas and ordered in order of preference. 
   
-  The first one, prefs, should have two columns: Resident Names/IDs, and their respective preferences, which should be lists separated by commas and ordered in order of preference. 
+  The second xlsx file, caps, should have two columns: Hospital Names/IDs, and their respective capacities.
+
+  out corresponds to the location where the user wants the output (resident-hospital assignments) to go.
   
-  The second one, caps, should have two columns: Hospital Names/IDs, and their respective capacities.
+  If the paths for prefs or caps is not provided, the user will be prompted for them.
+
+  If the path for out is not provided, it will default to "{pref_path}_results.csv".
   
   ### Example Input Files
 
