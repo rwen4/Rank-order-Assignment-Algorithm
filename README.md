@@ -175,12 +175,15 @@
   
   Individual Unfairness: We maximize the number of top-ranked matches overall, however some doctors may be pushed to very low-ranked assignments in order to promote overall satisfaction. 
   
-  ## Reference list：
-  References：
-  https://dl.acm.org/doi/pdf/10.1145/1198513.1198520
+  ## References
+
+- Irving, R. W., Kavitha, T., Mehlhorn, K., Michail, D., & Paluch, K. (2006).  
+  *Rank-maximal matchings*. ACM Transactions on Algorithms, 2(4), 602–610.  
+  [https://dl.acm.org/doi/pdf/10.1145/1198513.1198520](https://dl.acm.org/doi/pdf/10.1145/1198513.1198520)  
+
   https://link.springer.com/content/pdf/10.1007/BF02579273.pdf
   
-  Contributions:
+  ## Contributions:
   <br>Richard Wen: rank_matching.py 
   <br>Jiyi Wang: Establish repository, ReADME
   <br>Jiayou Jiang: Encode the metrics code.
