@@ -98,7 +98,6 @@ The algorithm can be framed as a series of linear programs:
 
 Maximization is performed in stages, ensuring earlier rank matches remain fixed as new ranks are considered.  
 
----
 
 ### Exploitable List Lengths
 
@@ -117,8 +116,6 @@ If both want X, the algorithm may assign:
 
 This creates a signature of [1,1], which is “better” than [1,0].  
 As a result, the algorithm incentivizes participants to submit shorter preference lists, which is undesirable.  
-
----
 
 **Fix: Dummy Hospital**
 
@@ -139,7 +136,7 @@ This ensures fairness:
 - (A, X), (B, None)  
 are considered equally valid outcomes.  
 
-👉 This modification encourages ranking more hospitals, removing the incentive to submit artificially short lists.  
+This modification encourages ranking more hospitals, removing the incentive to submit artificially short lists.  
 
 
 
