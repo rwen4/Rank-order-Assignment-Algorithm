@@ -181,6 +181,6 @@
   https://link.springer.com/content/pdf/10.1007/BF02579273.pdf
   
   Contributions:
-  Richard Wen: rank_matching.py 
+  <br>Richard Wen: rank_matching.py 
   <br>Jiyi Wang: Establish repository, ReADME
   <br>Jiayou Jiang: Encode the metrics code.
