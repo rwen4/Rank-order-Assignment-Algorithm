@@ -189,6 +189,6 @@
 
   
   ## Contributions:
-  Richard Wen: rank_matching.py 
+  Richard Wen: rank_matching.py, demo script 
   <br>Jiyi Wang: Establish repository, ReADME
   <br>Jiayou Jiang: Encode the metrics code.
