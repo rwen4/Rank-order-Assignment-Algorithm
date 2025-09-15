@@ -138,10 +138,20 @@ are considered equally valid outcomes.
 
 This modification encourages ranking more hospitals, removing the incentive to submit artificially short lists.  
 
+## Limitations and Assumptions
 
+Input Size: Complexity grows with the number of edges (resident-hospital preferences). Memory storage requirement may become large if the dataset has many doctors with many preferences, and/or many hospitals. This implementation worked well with a dataset of 300 residents, 100 hospitals, and ranking lists of up to 20 preferences. However, when tested with a life-size dataset of 30,000 residents, 43,000 hospital slots, and ranking lists of up to 300, this implementation was not practically executable.
 
+One-Directional Preferences: We assume in this problem that only the resident has preferences for hospitals. In reality, hospitals also have preferences for residents, which is not considered.
+
+Individual Unfairness: We maximize the number of top-ranked matches overall, however some doctors may be pushed to very low-ranked assignments in order to promote overall satisfaction. 
 
 ## Reference list：
-Based on：https://dl.acm.org/doi/pdf/10.1145/1198513.1198520
+References：
+https://dl.acm.org/doi/pdf/10.1145/1198513.1198520
+https://link.springer.com/content/pdf/10.1007/BF02579273.pdf
 
-Contribution：Richard Wen: Encode Match code. Jiyi Wang:Establish repositorie. Jiayou Jiang: Encode the metrics code.
+Contributions:
+Richard Wen: rank_matching.py 
+Jiyi Wang: Establish repository, ReADME
+Jiayou Jiang: Encode the metrics code.
