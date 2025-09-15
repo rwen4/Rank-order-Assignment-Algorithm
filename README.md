@@ -58,7 +58,7 @@ In order to approach this via Linear Programming, we first define the Rank-Maxim
 - Decision variable:  
   - *xᵢⱼ = 1* if doctor *i* is assigned to hospital *j*, 0 otherwise.  
 - Preference indicator:  
-  - $ \delta_{ij}^{(r)} $ = 1 if doctor *i* ranked hospital *j* as rank *r*, 0 otherwise.  
+  - δ<sub>ij</sub><sup>(r)</sup> = 1 if doctor *i* ranked hospital *j* as rank *r*, 0 otherwise.  
 
 The algorithm proceeds sequentially:  
 1. First, maximize the number of rank-1 matches:  
