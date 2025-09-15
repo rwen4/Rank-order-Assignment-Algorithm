@@ -182,5 +182,5 @@
   
   Contributions:
   Richard Wen: rank_matching.py 
-  Jiyi Wang: Establish repository, ReADME
-  Jiayou Jiang: Encode the metrics code.
+  <br>Jiyi Wang: Establish repository, ReADME
+  <br>Jiayou Jiang: Encode the metrics code.
