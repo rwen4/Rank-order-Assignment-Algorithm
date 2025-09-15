@@ -282,6 +282,7 @@ def _attach_eval_utils():
     print(results)                                                                       
 
 def export_matching_to_csv(matching, output_file="matching_results.csv"):
+    # Exports list of pairs as a CSV
     with open(output_file, mode="w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Resident", "Hospital"])
