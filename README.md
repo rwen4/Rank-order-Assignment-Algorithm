@@ -119,17 +119,17 @@ As a result, the algorithm incentivizes participants to submit shorter preferenc
 
 **Fix: Dummy Hospital**
 
-To remove this exploit, we introduce a dummy hospital called `"None"`:  
+To remove this exploit, we introduce a dummy hospital called "None":  
 
-- `"None"` has infinite capacity.  
-- Any doctor who does not match to a real hospital is automatically matched to `"None"`.  
-- `"None"` is always treated as the next rank option.  
+- "None" has infinite capacity.  
+- Any doctor who does not match to a real hospital is automatically matched to "None".  
+- "None" is always treated as the next rank option.  
 
 **Example:**  
 - Doctor A: X, Y  
 - Doctor B: X, None  
 
-Now, if B does not get X, they are matched to `"None"`, which counts as their rank-2 option.  
+Now, if B does not get X, they are matched to "None", which counts as their rank-2 option.  
 
 This ensures fairness:  
 - (A, Y), (B, X)  
